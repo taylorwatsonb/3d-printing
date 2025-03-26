@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ProductionMetric } from "@/utils/types";
 import { BarChart } from "@/components/BarChart";
 import { LineChart } from "@/components/LineChart";
-import { ArrowUp, ArrowDown, Box, Cylinder, Activity, RotateCcw, Printer3d } from "lucide-react";
+import { ArrowUp, ArrowDown, Box, Cylinder, Activity, RotateCcw, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MetricsCardProps {
@@ -26,7 +26,7 @@ const MetricsCard = ({ metric, chartType = "line", className }: MetricsCardProps
       return <RotateCcw className="h-4 w-4 text-muted-foreground" />;
     }
     if (metric.name.includes("Print") || metric.name.includes("Filament")) {
-      return <Printer3d className="h-4 w-4 text-muted-foreground" />;
+      return <Printer className="h-4 w-4 text-muted-foreground" />;
     }
     // Default icon
     return <Activity className="h-4 w-4 text-muted-foreground" />;

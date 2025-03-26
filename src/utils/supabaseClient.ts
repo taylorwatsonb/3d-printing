@@ -4,7 +4,8 @@ import {
   Machine, 
   ProductionMetric, 
   Order, 
-  Alert 
+  Alert,
+  MachineStatus
 } from "@/utils/types";
 
 // Fetch machines from Supabase
@@ -22,7 +23,7 @@ export const fetchMachines = async (): Promise<Machine[]> => {
   return data.map(machine => ({
     id: machine.id,
     name: machine.name,
-    status: machine.status,
+    status: machine.status as MachineStatus, // Cast to the correct type
     uptime: machine.uptime,
     throughput: machine.throughput,
     efficiency: machine.efficiency,
@@ -63,7 +64,7 @@ export const fetchProductionMetrics = async (): Promise<ProductionMetric[]> => {
           value: metric.value,
           unit: metric.unit,
           change: metric.change,
-          category: metric.category,
+          category: metric.category as "rendering" | "modeling" | "animation" | "general",
           data: []
         };
       }
@@ -74,7 +75,7 @@ export const fetchProductionMetrics = async (): Promise<ProductionMetric[]> => {
         value: metric.value,
         unit: metric.unit,
         change: metric.change,
-        category: metric.category,
+        category: metric.category as "rendering" | "modeling" | "animation" | "general",
         data: historyData.map(item => ({
           time: item.recorded_at,
           value: item.value
@@ -103,7 +104,7 @@ export const fetchOrders = async (): Promise<Order[]> => {
     customer: order.customer,
     product: order.product,
     quantity: order.quantity,
-    status: order.status,
+    status: order.status as "pending" | "in-progress" | "completed" | "delayed",
     startDate: order.start_date,
     endDate: order.end_date,
     progress: order.progress,
@@ -125,7 +126,7 @@ export const fetchAlerts = async (): Promise<Alert[]> => {
   
   return data.map(alert => ({
     id: alert.id,
-    type: alert.type,
+    type: alert.type as "error" | "warning" | "info" | "success",
     message: alert.message,
     timestamp: alert.created_at,
     machine: alert.machines?.name,

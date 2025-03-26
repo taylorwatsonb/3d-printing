@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { getAnalyticsData } from "@/utils/analytics";
-import { Activity, Clock, Printer3d } from "lucide-react";
+import { Activity, Clock, Printer } from "lucide-react";
 
 const DashboardHeader = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -80,7 +80,7 @@ const DashboardHeader = () => {
             <>
               <div className="card-glass p-3 flex flex-col justify-center min-w-[140px]">
                 <div className="flex items-center gap-2">
-                  <Printer3d size={18} className="text-primary" />
+                  <Printer size={18} className="text-primary" />
                   <span className="text-sm font-medium">Active Printers</span>
                 </div>
                 <div className="mt-1 flex items-end gap-2">
