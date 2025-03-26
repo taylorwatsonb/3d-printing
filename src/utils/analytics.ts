@@ -27,7 +27,9 @@ export const initGA = (measurementId: string): void => {
 // Track page views
 export const trackPageView = (path: string): void => {
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', process.env.GA_MEASUREMENT_ID || 'G-MEASUREMENT_ID', {
+    // Use a default measurement ID if the environment variable is not available
+    const measurementId = 'G-MEASUREMENT_ID'; // Default fallback value
+    window.gtag('config', measurementId, {
       page_path: path,
     });
     console.log('Page view tracked:', path);
