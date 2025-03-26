@@ -4,7 +4,7 @@ import { ProductionMetric } from "@/utils/mockData";
 import MetricsCard from "@/components/MetricsCard";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Cube, Axis3d, Cylinder, RotateCcw } from "lucide-react";
+import { Box, Cylinder, RotateCcw, Activity } from "lucide-react";
 
 interface ProductionMetricsProps {
   metrics: ProductionMetric[];
@@ -42,7 +42,7 @@ const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
     <div className={cn("space-y-4", className)}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Cube className="h-5 w-5 text-primary" />
+          <Box className="h-5 w-5 text-primary" />
           <h2 className="text-lg font-medium">3D Production Metrics</h2>
         </div>
         
@@ -55,7 +55,7 @@ const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
           >
             <TabsList className="grid w-full sm:w-[300px] grid-cols-4">
               <TabsTrigger value="all" className="flex items-center gap-1">
-                <Cube className="h-3.5 w-3.5" />
+                <Box className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">All</span>
               </TabsTrigger>
               <TabsTrigger value="rendering" className="flex items-center gap-1">
@@ -63,7 +63,7 @@ const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
                 <span className="hidden sm:inline">Rendering</span>
               </TabsTrigger>
               <TabsTrigger value="modeling" className="flex items-center gap-1">
-                <Axis3d className="h-3.5 w-3.5" />
+                <Activity className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Modeling</span>
               </TabsTrigger>
               <TabsTrigger value="animation" className="flex items-center gap-1">
@@ -90,7 +90,7 @@ const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
       
       {filteredMetrics.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-8 bg-muted/30 rounded-lg">
-          <Cube className="h-12 w-12 text-muted-foreground opacity-50 mb-3" />
+          <Box className="h-12 w-12 text-muted-foreground opacity-50 mb-3" />
           <p className="text-muted-foreground">No metrics available for this category.</p>
         </div>
       ) : (
