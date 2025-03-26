@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { getAnalyticsData } from "@/utils/analytics";
-import { Activity, Clock } from "lucide-react";
+import { Activity, Clock, Printer3d } from "lucide-react";
 
 const DashboardHeader = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -63,7 +63,7 @@ const DashboardHeader = () => {
             <div className="h-2 w-2 rounded-full bg-success animate-pulse"></div>
             <span className="text-sm font-medium text-muted-foreground">Live Dashboard</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Production Overview</h1>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">3D Printing Overview</h1>
           <div className="flex items-center mt-2 text-muted-foreground">
             <Clock size={16} className="mr-1.5" />
             <span className="text-sm">{formattedDate} | {formattedTime}</span>
@@ -80,13 +80,13 @@ const DashboardHeader = () => {
             <>
               <div className="card-glass p-3 flex flex-col justify-center min-w-[140px]">
                 <div className="flex items-center gap-2">
-                  <Activity size={18} className="text-primary" />
-                  <span className="text-sm font-medium">Today's Visitors</span>
+                  <Printer3d size={18} className="text-primary" />
+                  <span className="text-sm font-medium">Active Printers</span>
                 </div>
                 <div className="mt-1 flex items-end gap-2">
-                  <span className="text-xl font-bold">{analyticsSummary?.visitors?.today || 0}</span>
-                  <span className={`text-xs ${analyticsSummary?.visitors?.change > 0 ? 'metric-up' : 'metric-down'}`}>
-                    {analyticsSummary?.visitors?.change > 0 ? '+' : ''}{analyticsSummary?.visitors?.change || 0}%
+                  <span className="text-xl font-bold">{analyticsSummary?.printers?.active || 0}</span>
+                  <span className={`text-xs ${analyticsSummary?.printers?.change > 0 ? 'metric-up' : 'metric-down'}`}>
+                    {analyticsSummary?.printers?.change > 0 ? '+' : ''}{analyticsSummary?.printers?.change || 0}%
                   </span>
                 </div>
               </div>
@@ -94,12 +94,12 @@ const DashboardHeader = () => {
               <div className="card-glass p-3 flex flex-col justify-center min-w-[140px]">
                 <div className="flex items-center gap-2">
                   <Activity size={18} className="text-primary" />
-                  <span className="text-sm font-medium">Active Sessions</span>
+                  <span className="text-sm font-medium">Today's Prints</span>
                 </div>
                 <div className="mt-1 flex items-end gap-2">
-                  <span className="text-xl font-bold">{analyticsSummary?.sessions?.today || 0}</span>
-                  <span className={`text-xs ${analyticsSummary?.sessions?.change > 0 ? 'metric-up' : 'metric-down'}`}>
-                    {analyticsSummary?.sessions?.change > 0 ? '+' : ''}{analyticsSummary?.sessions?.change || 0}%
+                  <span className="text-xl font-bold">{analyticsSummary?.prints?.today || 0}</span>
+                  <span className={`text-xs ${analyticsSummary?.prints?.change > 0 ? 'metric-up' : 'metric-down'}`}>
+                    {analyticsSummary?.prints?.change > 0 ? '+' : ''}{analyticsSummary?.prints?.change || 0}%
                   </span>
                 </div>
               </div>

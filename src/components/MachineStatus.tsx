@@ -1,6 +1,6 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Machine } from "@/utils/mockData";
+import { Machine } from "@/utils/types";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -62,6 +62,12 @@ const MachineStatus = ({ machines, className }: MachineStatusProps) => {
               <span className="text-muted-foreground">Status:</span>
               <span className="font-medium">{formatStatus(selectedMachine.status)}</span>
               
+              <span className="text-muted-foreground">Type:</span>
+              <span className="font-medium">{selectedMachine.printerType}</span>
+              
+              <span className="text-muted-foreground">Material:</span>
+              <span className="font-medium">{selectedMachine.material}</span>
+              
               <span className="text-muted-foreground">Uptime:</span>
               <span className="font-medium">{selectedMachine.uptime.toFixed(1)}%</span>
               
@@ -86,7 +92,7 @@ const MachineStatus = ({ machines, className }: MachineStatusProps) => {
   return (
     <Card className={cn("overflow-hidden", className)}>
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium">Machine Status</CardTitle>
+        <CardTitle className="text-lg font-medium">3D Printer Status</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -102,7 +108,7 @@ const MachineStatus = ({ machines, className }: MachineStatusProps) => {
                   <span className="font-medium">{machine.name}</span>
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {machine.throughput} units/hr
+                  {machine.printerType} | {machine.material}
                 </span>
               </div>
               

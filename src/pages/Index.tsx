@@ -1,13 +1,21 @@
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import DashboardHeader from "@/components/DashboardHeader";
 import Navbar from "@/components/Navbar";
 import ProductionMetrics from "@/components/ProductionMetrics";
 import MachineStatus from "@/components/MachineStatus";
 import OrderStatus from "@/components/OrderStatus";
 import AlertPanel from "@/components/AlertPanel";
-import { simulateRealTimeUpdates, Alert, Machine, Order, ProductionMetric } from "@/utils/mockData";
 import { initGA, trackPageView } from "@/utils/analytics";
+import { Machine, ProductionMetric, Order, Alert } from "@/utils/types";
+import { 
+  fetchMachines, 
+  fetchProductionMetrics, 
+  fetchOrders, 
+  fetchAlerts,
+  subscribeToUpdates 
+} from "@/utils/supabaseClient";
 
 const Index = () => {
   const [machines, setMachines] = useState<Machine[]>([]);
@@ -15,29 +23,54 @@ const Index = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
   
   useEffect(() => {
     // Initialize Google Analytics
     initGA('G-MEASUREMENT_ID'); // Replace with your actual GA ID in production
     trackPageView('/');
     
-    // Simulate real-time data updates
-    const stopSimulation = simulateRealTimeUpdates(
-      ({ machines, metrics, orders, alerts }) => {
-        setMachines(machines);
-        setMetrics(metrics);
-        setOrders(orders);
-        setAlerts(alerts);
-        if (loading) setLoading(false);
-      },
-      3000 // Update every 3 seconds
-    );
+    // Initial data load
+    const loadData = async () => {
+      try {
+        const [machinesData, metricsData, ordersData, alertsData] = await Promise.all([
+          fetchMachines(),
+          fetchProductionMetrics(),
+          fetchOrders(),
+          fetchAlerts()
+        ]);
+        
+        setMachines(machinesData);
+        setMetrics(metricsData);
+        setOrders(ordersData);
+        setAlerts(alertsData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading initial data:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load dashboard data. Please refresh the page.",
+          variant: "destructive",
+        });
+        setLoading(false);
+      }
+    };
+    
+    loadData();
+    
+    // Subscribe to realtime updates
+    const unsubscribe = subscribeToUpdates(({ machines, metrics, orders, alerts }) => {
+      if (machines) setMachines(machines);
+      if (metrics) setMetrics(metrics);
+      if (orders) setOrders(orders);
+      if (alerts) setAlerts(alerts);
+    });
     
     // Clean up on unmount
     return () => {
-      stopSimulation();
+      unsubscribe();
     };
-  }, [loading]);
+  }, [toast]);
   
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +105,7 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Smart Production Dashboard
+              © {new Date().getFullYear()} 3D Printing Production Dashboard
             </div>
             <div className="text-sm text-muted-foreground mt-2 md:mt-0">
               Real-time production monitoring and analytics

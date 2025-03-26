@@ -1,10 +1,10 @@
 
 import { useState, useMemo } from "react";
-import { ProductionMetric } from "@/utils/mockData";
+import { ProductionMetric } from "@/utils/types";
 import MetricsCard from "@/components/MetricsCard";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Box, Cylinder, RotateCcw, Activity } from "lucide-react";
+import { Box, Cylinder, RotateCcw, Activity, Printer } from "lucide-react";
 
 interface ProductionMetricsProps {
   metrics: ProductionMetric[];
@@ -13,37 +13,25 @@ interface ProductionMetricsProps {
 
 const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
   const [timeframe, setTimeframe] = useState<"day" | "week" | "month">("week");
-  const [viewType, setViewType] = useState<"all" | "rendering" | "modeling" | "animation">("all");
+  const [viewType, setViewType] = useState<"all" | "rendering" | "modeling" | "general">("all");
 
   // Filter metrics based on timeframe and 3D production category
   const filteredMetrics = useMemo(() => {
     // In a real app, this would filter based on both timeframe and viewType
-    // For this demo, we're just returning all metrics with custom grouping
     if (viewType === "all") {
       return metrics;
     }
     
     // Filter metrics based on category
-    return metrics.filter(metric => {
-      if (viewType === "rendering" && (metric.name.includes("Render") || metric.name.includes("GPU"))) {
-        return true;
-      }
-      if (viewType === "modeling" && (metric.name.includes("Model") || metric.name.includes("Asset"))) {
-        return true;
-      }
-      if (viewType === "animation" && (metric.name.includes("Animation") || metric.name.includes("Rig"))) {
-        return true;
-      }
-      return false;
-    });
+    return metrics.filter(metric => metric.category === viewType);
   }, [metrics, timeframe, viewType]);
 
   return (
     <div className={cn("space-y-4", className)}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Box className="h-5 w-5 text-primary" />
-          <h2 className="text-lg font-medium">3D Production Metrics</h2>
+          <Printer className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-medium">3D Printing Metrics</h2>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-3">
@@ -60,15 +48,15 @@ const ProductionMetrics = ({ metrics, className }: ProductionMetricsProps) => {
               </TabsTrigger>
               <TabsTrigger value="rendering" className="flex items-center gap-1">
                 <Cylinder className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">Rendering</span>
+                <span className="hidden sm:inline">Slicing</span>
               </TabsTrigger>
               <TabsTrigger value="modeling" className="flex items-center gap-1">
                 <Activity className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Modeling</span>
               </TabsTrigger>
-              <TabsTrigger value="animation" className="flex items-center gap-1">
+              <TabsTrigger value="general" className="flex items-center gap-1">
                 <RotateCcw className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">Animation</span>
+                <span className="hidden sm:inline">General</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>

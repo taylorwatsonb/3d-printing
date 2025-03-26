@@ -1,10 +1,10 @@
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { ProductionMetric } from "@/utils/mockData";
+import { ProductionMetric } from "@/utils/types";
 import { BarChart } from "@/components/BarChart";
 import { LineChart } from "@/components/LineChart";
-import { ArrowUp, ArrowDown, Box, Cylinder, Activity, RotateCcw } from "lucide-react";
+import { ArrowUp, ArrowDown, Box, Cylinder, Activity, RotateCcw, Printer3d } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MetricsCardProps {
@@ -16,14 +16,17 @@ interface MetricsCardProps {
 const MetricsCard = ({ metric, chartType = "line", className }: MetricsCardProps) => {
   // Get icon based on metric name
   const getMetricIcon = () => {
-    if (metric.name.includes("Render") || metric.name.includes("GPU")) {
+    if (metric.category === 'rendering') {
       return <Cylinder className="h-4 w-4 text-muted-foreground" />;
     }
-    if (metric.name.includes("Model") || metric.name.includes("Asset")) {
+    if (metric.category === 'modeling') {
       return <Box className="h-4 w-4 text-muted-foreground" />;
     }
-    if (metric.name.includes("Animation") || metric.name.includes("Rig")) {
+    if (metric.category === 'animation') {
       return <RotateCcw className="h-4 w-4 text-muted-foreground" />;
+    }
+    if (metric.name.includes("Print") || metric.name.includes("Filament")) {
+      return <Printer3d className="h-4 w-4 text-muted-foreground" />;
     }
     // Default icon
     return <Activity className="h-4 w-4 text-muted-foreground" />;
