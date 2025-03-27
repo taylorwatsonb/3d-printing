@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -203,7 +202,7 @@ const UserManagement = () => {
           name: editUserName,
           email: editUserEmail,
           role: editUserRole,
-          status: editUserStatus,
+          status: editUserStatus as "active" | "inactive" | "pending",
         };
       }
       return user;
