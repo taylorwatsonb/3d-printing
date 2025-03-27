@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -8,16 +9,16 @@ import { Button } from "@/components/ui/button";
 import { fetchMachineById } from "@/utils/supabaseClient";
 import { Machine } from "@/utils/types";
 import Navbar from "@/components/Navbar";
-import LineChart from "@/components/LineChart";
+import { LineChart } from "@/components/LineChart";
 import { 
   ArrowLeft, 
   Thermometer, 
   Timer, 
-  Tool, 
   AlertTriangle, 
   Clock, 
   Cylinder,
-  RotateCcw
+  RotateCcw,
+  Wrench as Tool
 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
