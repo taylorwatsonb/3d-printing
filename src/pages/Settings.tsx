@@ -34,7 +34,7 @@ const Settings = () => {
         </div>
         
         <Tabs defaultValue="notifications" className="space-y-4">
-          <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <TabsList className="flex flex-wrap gap-2 w-full">
             <TabsTrigger value="notifications" className="flex items-center gap-2">
               <Bell className="h-4 w-4" />
               <span>Notifications</span>
