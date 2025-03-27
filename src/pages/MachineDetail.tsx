@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -18,7 +17,7 @@ import {
   Clock, 
   Cylinder,
   RotateCcw,
-  Wrench as Tool
+  Wrench
 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -31,13 +30,13 @@ const MachineDetail = () => {
   
   // Mock temperature data - would be fetched from the server in a real app
   const [temperatureData, setTemperatureData] = useState([
-    { time: '00:00', value: 205 },
-    { time: '02:00', value: 210 },
-    { time: '04:00', value: 208 },
-    { time: '06:00', value: 215 },
-    { time: '08:00', value: 212 },
-    { time: '10:00', value: 210 },
-    { time: '12:00', value: 218 },
+    { x: new Date('2023-10-29T00:00:00').getTime(), y: 205 },
+    { x: new Date('2023-10-29T02:00:00').getTime(), y: 210 },
+    { x: new Date('2023-10-29T04:00:00').getTime(), y: 208 },
+    { x: new Date('2023-10-29T06:00:00').getTime(), y: 215 },
+    { x: new Date('2023-10-29T08:00:00').getTime(), y: 212 },
+    { x: new Date('2023-10-29T10:00:00').getTime(), y: 210 },
+    { x: new Date('2023-10-29T12:00:00').getTime(), y: 218 },
   ]);
   
   // Mock sensor data - would be fetched from the server in a real app
@@ -76,13 +75,15 @@ const MachineDetail = () => {
       setTemperatureData(prev => {
         const newData = [...prev];
         // Add a new temperature reading
-        const lastValue = newData[newData.length - 1].value;
+        const lastValue = newData[newData.length - 1].y;
         const newValue = Math.max(180, Math.min(230, lastValue + (Math.random() * 10 - 5)));
         
         const now = new Date();
-        const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
         
-        newData.push({ time: timeString, value: Math.round(newValue) });
+        newData.push({
+          x: now.getTime(),
+          y: Math.round(newValue)
+        });
         
         // Keep only last 8 readings
         if (newData.length > 8) {
@@ -278,7 +279,7 @@ const MachineDetail = () => {
                       
                       <div className="flex flex-col space-y-1">
                         <div className="flex items-center">
-                          <Tool className="h-4 w-4 mr-1 text-purple-500" />
+                          <Wrench className="h-4 w-4 mr-1 text-purple-500" />
                           <Label className="text-sm">Motor Temp</Label>
                         </div>
                         <span className="text-xl font-bold">{Math.round(sensorReadings.motorTemp)}°C</span>
@@ -298,7 +299,7 @@ const MachineDetail = () => {
                         className="w-full"
                         variant="outline"
                       >
-                        <Tool className="h-4 w-4 mr-2" />
+                        <Wrench className="h-4 w-4 mr-2" />
                         Schedule Maintenance
                       </Button>
                       
@@ -374,9 +375,10 @@ const MachineDetail = () => {
                       <div className="h-[300px]">
                         <LineChart 
                           data={temperatureData}
-                          xAxisKey="time"
-                          yAxisKey="value"
                           color="#ef4444"
+                          showAxis
+                          showGrid
+                          showTooltip
                         />
                       </div>
                     </CardContent>
@@ -448,7 +450,7 @@ const MachineDetail = () => {
                         <div className="flex">
                           <div className="flex flex-col items-center mr-4">
                             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground">
-                              <Tool className="h-4 w-4" />
+                              <Wrench className="h-4 w-4" />
                             </div>
                             <div className="w-px h-full bg-border"></div>
                           </div>
@@ -466,7 +468,7 @@ const MachineDetail = () => {
                         <div className="flex">
                           <div className="flex flex-col items-center mr-4">
                             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground">
-                              <Tool className="h-4 w-4" />
+                              <Wrench className="h-4 w-4" />
                             </div>
                             <div className="w-px h-full bg-border"></div>
                           </div>
@@ -484,7 +486,7 @@ const MachineDetail = () => {
                         <div className="flex">
                           <div className="flex flex-col items-center mr-4">
                             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground">
-                              <Tool className="h-4 w-4" />
+                              <Wrench className="h-4 w-4" />
                             </div>
                             <div className="w-px h-full bg-border"></div>
                           </div>

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -55,8 +56,8 @@ import {
   Users, 
   Shield, 
   Clock, 
-  BarChart as BarChart3,
-  FileIcon as FileType,
+  BarChart3,
+  FileIcon,
   CheckCircle
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -116,13 +117,13 @@ const UserManagement = () => {
   const [newUserName, setNewUserName] = useState("");
   const [newUserEmail, setNewUserEmail] = useState("");
   const [newUserRole, setNewUserRole] = useState("viewer");
-  const [newUserStatus, setNewUserStatus] = useState("pending");
+  const [newUserStatus, setNewUserStatus] = useState<"active" | "inactive" | "pending">("pending");
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [editUserName, setEditUserName] = useState("");
   const [editUserEmail, setEditUserEmail] = useState("");
   const [editUserRole, setEditUserRole] = useState("");
-  const [editUserStatus, setEditUserStatus] = useState("");
+  const [editUserStatus, setEditUserStatus] = useState<"active" | "inactive" | "pending">("pending");
   const [isPermissionsOpen, setIsPermissionsOpen] = useState(false);
   const [userPermissions, setUserPermissions] = useState<string[]>([]);
   const [isUserDetailsOpen, setIsUserDetailsOpen] = useState(false);
@@ -214,7 +215,7 @@ const UserManagement = () => {
     setEditUserName("");
     setEditUserEmail("");
     setEditUserRole("");
-    setEditUserStatus("");
+    setEditUserStatus("pending");
 
     toast({
       title: "Success",
@@ -351,7 +352,7 @@ const UserManagement = () => {
                       <Label htmlFor="status" className="text-right">
                         Status
                       </Label>
-                      <Select onValueChange={setNewUserStatus}>
+                      <Select onValueChange={(value: "active" | "inactive" | "pending") => setNewUserStatus(value)}>
                         <SelectTrigger className="col-span-3">
                           <SelectValue placeholder="Select a status" />
                         </SelectTrigger>
@@ -428,7 +429,7 @@ const UserManagement = () => {
                             <Badge variant="destructive">Inactive</Badge>
                           )}
                           {user.status === "pending" && (
-                            <Badge variant="warning">Pending</Badge>
+                            <Badge variant="outline" className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Pending</Badge>
                           )}
                         </TableCell>
                         <TableCell>
@@ -527,7 +528,10 @@ const UserManagement = () => {
               <Label htmlFor="status" className="text-right">
                 Status
               </Label>
-              <Select onValueChange={setEditUserStatus} defaultValue={editUserStatus}>
+              <Select 
+                onValueChange={(value: "active" | "inactive" | "pending") => setEditUserStatus(value)} 
+                defaultValue={editUserStatus}
+              >
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select a status" />
                 </SelectTrigger>
