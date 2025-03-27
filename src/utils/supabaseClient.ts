@@ -35,6 +35,34 @@ export const fetchMachines = async (): Promise<Machine[]> => {
   }));
 };
 
+// Fetch a single machine by ID
+export const fetchMachineById = async (id: string): Promise<Machine | null> => {
+  const { data, error } = await supabase
+    .from('machines')
+    .select('*')
+    .eq('id', id)
+    .single();
+  
+  if (error) {
+    console.error(`Error fetching machine with id ${id}:`, error);
+    return null;
+  }
+  
+  return {
+    id: data.id,
+    name: data.name,
+    status: data.status as MachineStatus,
+    uptime: data.uptime,
+    throughput: data.throughput,
+    efficiency: data.efficiency,
+    printerType: data.printer_type,
+    material: data.material,
+    nozzleSize: data.nozzle_size,
+    lastMaintenance: data.last_maintenance,
+    nextMaintenance: data.next_maintenance
+  };
+};
+
 // Fetch production metrics from Supabase
 export const fetchProductionMetrics = async (): Promise<ProductionMetric[]> => {
   const { data, error } = await supabase

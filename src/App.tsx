@@ -7,6 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
+import MachineDetail from "./pages/MachineDetail";
+import FileManager from "./pages/FileManager";
+import Analytics from "./pages/Analytics";
+import UserManagement from "./pages/UserManagement";
+import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +26,12 @@ const App = () => (
           <Routes>
             {/* Main routes */}
             <Route path="/" element={<Index />} />
-            <Route path="/settings" element={<div className="container py-8">Settings Page</div>} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/machines/:id" element={<MachineDetail />} />
+            <Route path="/files" element={<FileManager />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/users" element={<UserManagement />} />
+            <Route path="/notifications" element={<Notifications />} />
             
             {/* 404 route */}
             <Route path="*" element={<NotFound />} />
