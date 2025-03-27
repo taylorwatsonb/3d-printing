@@ -11,6 +11,7 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
@@ -34,7 +35,7 @@ const Navbar = () => {
   };
   
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-border/40 transition-all duration-200">
+    <header className="sticky top-0 z-40 w-full bg-white/80 dark:bg-background backdrop-blur-md border-b border-border/40 transition-all duration-200">
       <div className="container flex h-16 items-center justify-between px-4 md:px-8">
         <div className="flex items-center gap-2">
           {isMobile && (
@@ -80,6 +81,7 @@ const Navbar = () => {
           >
             <Bell size={20} />
           </button>
+          <ThemeToggle />
         </div>
       </div>
       
