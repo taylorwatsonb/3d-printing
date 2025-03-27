@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import DashboardHeader from "@/components/DashboardHeader";
@@ -104,7 +105,7 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} 3D Printing Production Dashboard
+              © {new Date().getFullYear()} 3D Printing Production Dashboard by Taylor Watson
             </div>
             <div className="text-sm text-muted-foreground mt-2 md:mt-0">
               Real-time production monitoring and analytics
