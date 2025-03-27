@@ -6,19 +6,16 @@ import {
   LayoutDashboard, 
   Settings,
   Menu,
-  X,
-  LogOut
+  X
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toast } = useToast();
-  const { user, signOut } = useAuth();
   
   const navItems = [
     { label: "Dashboard", icon: <LayoutDashboard size={20} />, href: "/", active: true },
@@ -34,10 +31,6 @@ const Navbar = () => {
       title: "Notifications",
       description: "You have 5 unread notifications",
     });
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
   };
   
   return (
@@ -87,17 +80,6 @@ const Navbar = () => {
           >
             <Bell size={20} />
           </button>
-          
-          {user && (
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary hover:bg-accent rounded-md"
-              aria-label="Sign out"
-            >
-              <LogOut size={18} />
-              <span className="hidden md:inline-block">Sign Out</span>
-            </button>
-          )}
         </div>
       </div>
       
@@ -121,19 +103,6 @@ const Navbar = () => {
                 <span>{item.label}</span>
               </Link>
             ))}
-            
-            {user && (
-              <button
-                onClick={() => {
-                  handleSignOut();
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center gap-3 px-4 py-3 text-base font-medium transition-colors rounded-md text-muted-foreground hover:bg-accent/50 mt-4"
-              >
-                <LogOut size={20} />
-                <span>Sign Out</span>
-              </button>
-            )}
           </nav>
         </div>
       )}
