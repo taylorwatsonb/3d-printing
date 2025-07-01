@@ -1,69 +1,189 @@
-# Welcome to your Lovable project
 
-## Project info
+# 3D Printing Production Dashboard
 
-**URL**: https://lovable.dev/projects/9b841101-a903-4468-8ee9-d9adfcec65f4
+A comprehensive real-time dashboard for monitoring and managing 3D printing operations, built with modern web technologies.
 
-## How can I edit this code?
+**Developer:** Taylor Watson
 
-There are several ways of editing your application.
+## 🚀 Project Overview
 
-**Use Lovable**
+This production dashboard provides real-time monitoring and analytics for 3D printing operations, featuring machine status tracking, production metrics, order management, and intelligent alerting systems. The application is designed for manufacturing environments that require continuous oversight of multiple 3D printing machines.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9b841101-a903-4468-8ee9-d9adfcec65f4) and start prompting.
+## ✨ Key Features
 
-Changes made via Lovable will be committed automatically to this repo.
+### 📊 **Real-Time Monitoring**
+- Live machine status updates with health indicators
+- Real-time production metrics and performance tracking
+- Automated alert system for maintenance and errors
+- Interactive charts and data visualizations
 
-**Use your preferred IDE**
+### 🔧 **Machine Management**
+- Individual machine detail pages with comprehensive status information
+- Maintenance scheduling and alerts
+- Performance analytics and historical data
+- Integration with popular slicing software (Prusa Slicer, Cura)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 📋 **Order & Production Management**
+- Order status tracking and workflow management
+- Production queue optimization
+- File management system for 3D models
+- Batch processing capabilities
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 👥 **User Management & Settings**
+- Role-based access control
+- Customizable notification preferences (Email, SMS)
+- Comprehensive settings management
+- User activity tracking
 
-Follow these steps:
+### 📈 **Analytics & Reporting**
+- Production efficiency metrics
+- Machine utilization reports
+- Predictive maintenance insights
+- Custom dashboard configurations
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Technical Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### **Frontend**
+- **React 18** - Modern UI library with hooks
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern component library
 
-# Step 3: Install the necessary dependencies.
-npm i
+### **State Management & Data**
+- **TanStack React Query** - Server state management
+- **Supabase** - Backend-as-a-Service with real-time capabilities
+- **React Router** - Client-side routing
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### **Visualization & UX**
+- **Recharts** - Interactive charts and graphs
+- **Lucide React** - Modern icon library
+- **React Hook Form** - Form management
+- **Sonner** - Toast notifications
+
+## 🏗️ Architecture
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── AlertPanel.tsx  # Real-time alerts display
+│   ├── MachineStatus.tsx
+│   └── ProductionMetrics.tsx
+├── pages/              # Route components
+│   ├── Index.tsx       # Main dashboard
+│   ├── Settings.tsx    # Configuration panel
+│   ├── Analytics.tsx   # Analytics dashboard
+│   └── MachineDetail.tsx
+├── hooks/              # Custom React hooks
+├── utils/              # Utility functions
+│   ├── analytics.ts    # Google Analytics integration
+│   ├── supabaseClient.ts
+│   └── types.ts        # TypeScript definitions
+└── integrations/       # External service integrations
 ```
 
-**Edit a file directly in GitHub**
+## 🚀 Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
 
-**Use GitHub Codespaces**
+### Installation
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd 3d-printing-dashboard
+   ```
 
-## What technologies are used for this project?
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This project is built with .
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Configure your Supabase credentials and other environment variables
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-## How can I deploy this project?
+5. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-Simply open [Lovable](https://lovable.dev/projects/9b841101-a903-4468-8ee9-d9adfcec65f4) and click on Share -> Publish.
+### Production Build
+```bash
+npm run build
+npm run preview
+```
 
-## I want to use a custom domain - is that possible?
+## 📱 Responsive Design
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+The dashboard is fully responsive and optimized for:
+- **Desktop** - Full-featured dashboard experience
+- **Tablet** - Adapted layouts for medium screens
+- **Mobile** - Touch-optimized interface for on-the-go monitoring
+
+## 🔒 Security Features
+
+- Role-based access control
+- Secure authentication with Supabase
+- Real-time data encryption
+- Session management
+- Input validation and sanitization
+
+## 📊 Performance Optimizations
+
+- Code splitting and lazy loading
+- Optimized bundle size with Vite
+- Efficient state management with React Query
+- Real-time updates with minimal re-renders
+- Image optimization and lazy loading
+
+## 🧪 Testing & Quality
+
+- TypeScript for type safety
+- ESLint for code quality
+- Responsive design testing
+- Cross-browser compatibility
+
+## 🚀 Deployment
+
+The application can be deployed to various platforms:
+- **Vercel** - Recommended for easy deployment
+- **Netlify** - Static site hosting
+- **Custom server** - Self-hosted options available
+
+## 🔮 Future Enhancements
+
+- [ ] Mobile app development (React Native)
+- [ ] Advanced AI-powered predictive maintenance
+- [ ] Integration with more 3D printing software
+- [ ] Advanced reporting and export features
+- [ ] Multi-language support
+
+## 📝 License
+
+This project is private and proprietary.
+
+## 👨‍💻 About the Developer
+
+Developed by **Taylor Watson** as a demonstration of modern web development skills and expertise in creating production-ready applications for industrial use cases.
+
+### Skills Demonstrated
+- Full-stack web development
+- Real-time data processing
+- Modern React development patterns
+- TypeScript implementation
+- Responsive UI/UX design
+- Database integration and management
+- Production deployment and optimization
+
+---
+
+*This project showcases proficiency in modern web technologies and the ability to create comprehensive, production-ready applications for industrial environments.*
